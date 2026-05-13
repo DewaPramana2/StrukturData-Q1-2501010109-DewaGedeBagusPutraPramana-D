@@ -1,67 +1,52 @@
-# Quis 1 Struktur Data:
+# Quis 1 Struktur Data: 
 
 ## 1. Karakteristik Memori dan Akses Data
 
-Array memiliki kemampuan akses elemen dengan kompleksitas waktu **O(1)** karena data disimpan secara **kontinu (berurutan)** di memori. Setiap elemen array memiliki alamat memori yang dapat dihitung langsung menggunakan rumus:
+Array memiliki akses data yang sangat cepat karena elemen-elemennya disimpan secara berurutan di memori. Setiap elemen memiliki indeks, sehingga alamat memorinya bisa langsung dihitung tanpa harus mencari satu per satu. Oleh karena itu, proses akses data pada array memiliki kompleksitas waktu O(1).
 
-```
+Contoh sederhana:
+
 alamat_elemen = alamat_awal + (index × ukuran_data)
-```
 
-Karena alamat elemen dapat dihitung secara langsung, maka proses mengambil data pada indeks tertentu tidak perlu menelusuri elemen lain terlebih dahulu.
-
-Sebaliknya, pada Singly Linked List, data disimpan secara **non-kontinu** di memori. Setiap node terdiri dari data dan pointer yang menunjuk ke node berikutnya. Untuk mengakses elemen tertentu, program harus menelusuri node satu per satu mulai dari head hingga node tujuan ditemukan.
+Berbeda dengan Singly Linked List, data pada struktur ini tidak disimpan secara berurutan di memori. Setiap node hanya menyimpan data dan pointer ke node berikutnya. Untuk mencari elemen tertentu, program harus menelusuri node mulai dari head sampai data ditemukan.
 
 Akibatnya:
 
-* Array → akses data cepat dengan kompleksitas **O(1)**
-* Singly Linked List → akses data membutuhkan traversal sehingga kompleksitasnya **O(n)**
+* Array memiliki akses data lebih cepat dengan kompleksitas O(1).
+* Singly Linked List membutuhkan traversal sehingga kompleksitasnya O(n).
 
 Dari sisi memori:
 
-* Array lebih efisien dalam akses karena lokasi data berdekatan.
-* Linked List lebih fleksibel karena tidak membutuhkan blok memori berurutan.
+* Array membutuhkan memori yang kontinu.
+* Linked List lebih fleksibel karena node dapat disimpan di lokasi memori yang berbeda.
 
 ---
 
 ## 2. Analisis Efisiensi Operasi Manipulasi
 
-Linked List lebih unggul dibandingkan Array pada operasi **penyisipan (insertion)** dan **penghapusan (deletion)**, terutama ketika operasi dilakukan di awal atau tengah data.
+Linked List lebih unggul dibandingkan Array dalam operasi insertion dan deletion, terutama jika data sering ditambah atau dihapus.
 
-### Pada Array
+Pada Array:
 
-Ketika menyisipkan atau menghapus elemen:
+* Saat menyisipkan data di tengah, elemen setelahnya harus digeser.
+* Saat menghapus data, elemen juga perlu dirapikan kembali.
 
-* Elemen-elemen setelah posisi target harus digeser.
-* Proses pergeseran membutuhkan waktu linear.
+Karena ada proses pergeseran elemen, kompleksitas waktunya menjadi O(n).
 
-Kompleksitas:
+Sedangkan pada Linked List:
 
-* Insertion/Delete Array → **O(n)**
-
-### Pada Linked List
-
-Pada Linked List, proses insertion atau deletion cukup dengan:
-
-* Mengubah pointer node.
+* Penambahan atau penghapusan data cukup mengubah pointer.
 * Tidak perlu menggeser elemen lain.
 
-Kompleksitas:
+Jika posisi node sudah diketahui, operasi insertion dan deletion dapat dilakukan dalam O(1).
 
-* Insertion/Delete Linked List → **O(1)** jika posisi node sudah diketahui.
+Jadi, Linked List lebih cocok digunakan ketika:
 
-### Kesimpulan
+* ukuran data sering berubah,
+* proses tambah/hapus data lebih sering dilakukan,
+* dan fleksibilitas memori lebih dibutuhkan.
 
-Linked List lebih cocok digunakan ketika:
-
-* Data sering berubah ukuran.
-* Operasi tambah/hapus lebih sering dilakukan dibanding akses indeks.
-* Dibutuhkan fleksibilitas alokasi memori.
-
-Sedangkan Array lebih cocok untuk:
-
-* Akses data cepat berdasarkan indeks.
-* Data relatif tetap ukurannya.
+Sementara Array lebih cocok jika program membutuhkan akses data yang cepat berdasarkan indeks.
 
 ---
 
@@ -69,122 +54,76 @@ Sedangkan Array lebih cocok untuk:
 
 Pada Doubly Linked List, setiap node memiliki tiga bagian:
 
-```
 [prev | data | next]
-```
 
 Keterangan:
 
-* `prev` → pointer ke node sebelumnya.
-* `data` → menyimpan nilai/data.
-* `next` → pointer ke node berikutnya.
+* prev menyimpan alamat node sebelumnya.
+* data menyimpan nilai data.
+* next menyimpan alamat node berikutnya.
 
-### Dampak Pointer Tambahan
+Adanya pointer tambahan (prev) membuat traversal dapat dilakukan dua arah, yaitu maju dan mundur. Hal ini membuat proses pencarian atau penghapusan node menjadi lebih fleksibel dibandingkan Singly Linked List.
 
-#### Kelebihan
+Kelebihan Doubly Linked List:
 
-1. Traversal dapat dilakukan dua arah:
+* Bisa traversal dua arah.
+* Penghapusan node lebih mudah.
+* Cocok untuk fitur undo/redo atau navigasi.
 
-   * maju (forward)
-   * mundur (backward)
+Kekurangannya:
 
-2. Operasi penghapusan node lebih mudah karena node mengetahui elemen sebelumnya.
-
-3. Lebih fleksibel untuk implementasi:
-
-   * browser history
-   * undo/redo
-   * navigasi playlist
-
-#### Kekurangan
-
-1. Membutuhkan memori lebih besar karena ada tambahan pointer `prev`.
-2. Proses manipulasi pointer lebih kompleks dibanding Singly Linked List.
-
-### Perbandingan
-
-* Singly Linked List:
-
-  * memori lebih hemat
-  * traversal satu arah
-
-* Doubly Linked List:
-
-  * memori lebih besar
-  * traversal dua arah lebih fleksibel
+* Membutuhkan memori lebih besar karena ada tambahan pointer.
+* Pengelolaan pointer lebih kompleks.
 
 ---
 
 ## 4. Mekanisme Circular Linked List
 
-Circular Linked List adalah Linked List yang node terakhirnya tidak menunjuk ke `NULL`, melainkan kembali menunjuk ke node pertama (head).
+Circular Linked List adalah Linked List yang node terakhirnya kembali menunjuk ke node pertama, sehingga membentuk lingkaran.
 
-### Perbedaan dengan Linked List Biasa
+Linked List biasa:
 
-#### Linked List Biasa
-
-```
 Head → Node → Node → NULL
-```
 
-#### Circular Linked List
+Circular Linked List:
 
-```
 Head → Node → Node ─┐
-        ↑───────────┘
-```
+↑───────────┘
 
-Pada Circular Linked List:
+Perbedaan utamanya adalah pada node terakhir:
 
-* tidak ada node akhir yang bernilai NULL,
-* traversal dapat berlangsung terus menerus secara melingkar.
+* Linked List biasa berakhir di NULL.
+* Circular Linked List kembali ke head.
 
-### Keunggulan
+Struktur ini cocok digunakan pada proses yang berjalan terus menerus atau bergiliran.
 
-* Cocok untuk proses yang berulang secara siklus.
-* Tidak perlu kembali ke head secara manual.
+Contoh penggunaan:
 
-### Contoh Use Case
+* Round Robin Scheduling pada sistem operasi.
 
-Salah satu contoh penggunaan adalah **Round Robin Scheduling** pada sistem operasi.
-
-Pada metode ini:
-
-* setiap proses mendapatkan giliran eksekusi,
-* setelah proses terakhir selesai, giliran kembali ke proses pertama.
-
-Circular Linked List efektif karena alur data bersifat berulang/melingkar.
+Pada sistem tersebut, setiap proses mendapatkan giliran secara bergantian dan akan kembali ke proses pertama setelah proses terakhir selesai dijalankan.
 
 ---
 
 ## 5. Array Dinamis di Python
 
-`Python list` diimplementasikan menggunakan Dynamic Array.
+List pada Python sebenarnya menggunakan konsep Dynamic Array.
 
-Ketika operasi `append()` dilakukan dan kapasitas array masih tersedia:
+Saat melakukan append(), jika kapasitas array masih tersedia maka data langsung ditambahkan dan proses berjalan cepat dengan kompleksitas O(1).
 
-* elemen langsung ditambahkan,
-* kompleksitasnya **O(1)**.
+Namun jika kapasitas penuh:
 
-Namun ketika kapasitas penuh, Python melakukan proses berikut:
+1. Python membuat array baru dengan ukuran lebih besar.
+2. Semua data lama disalin ke array baru.
+3. Data baru ditambahkan.
+4. Array lama dihapus dari memori.
 
-### Mekanisme di Balik Layar
+Karena ada proses penyalinan data, operasi resize membutuhkan waktu O(n).
 
-1. Python membuat array baru dengan kapasitas lebih besar.
-2. Biasanya kapasitas diperbesar beberapa kali lipat (over-allocation).
-3. Semua elemen lama disalin ke array baru.
-4. Elemen baru ditambahkan.
-5. Array lama dilepas dari memori.
+Walaupun begitu, secara rata-rata operasi append() tetap dianggap O(1) karena proses resize tidak selalu terjadi setiap penambahan data.
 
-### Dampak Kompleksitas
+Kelebihan Dynamic Array:
 
-* Append normal → **O(1)**
-* Saat resize → **O(n)** karena perlu menyalin seluruh elemen.
-
-Namun secara rata-rata (amortized complexity), operasi `append()` tetap dianggap **O(1)** karena resize tidak terjadi setiap saat.
-
-### Keuntungan Dynamic Array
-
-* Ukuran fleksibel.
-* Tetap memiliki akses indeks cepat seperti array biasa.
-* Efisien untuk penambahan data di akhir list.
+* ukuran lebih fleksibel,
+* tetap memiliki akses indeks yang cepat,
+* dan efisien digunakan untuk penambahan data di akhir list.
