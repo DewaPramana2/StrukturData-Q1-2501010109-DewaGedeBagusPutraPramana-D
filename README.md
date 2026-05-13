@@ -1,4 +1,4 @@
-# Quis 1 Struktur Data: Array dan Linked List
+# Quis 1 Struktur Data:
 
 ## 1. Karakteristik Memori dan Akses Data
 
